@@ -1,9 +1,9 @@
-import User from "../modell/user.model";
+import User from "../modell/usermodel.js";
 
 export class userService {
 
       findUser = async(email)=>{
-        return await User.find({email : email})
+        return await User.findOne({email : email})
       }
 
       addUser = async(body)=>{
