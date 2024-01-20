@@ -26,7 +26,7 @@ const userSchema = new Schema(
       lowercase: true,
       unique: true,
       required: true,
-      match: [/^[a-zA-Z0_9]+$/, "invadid"],
+      
     },
 
     password: {
@@ -44,6 +44,10 @@ const userSchema = new Schema(
     },
     profileimage: {
       type: String,
+    },
+    is_Admin : {
+      type : Boolean,
+      default : false
     },
     isDelete: {
       type: Boolean,

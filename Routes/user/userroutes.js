@@ -1,7 +1,9 @@
 import express from "express";
-import {Register} from "../../controller/usercontroller.js"
+import {Register, login} from "../../controller/usercontroller.js"
 const userRoutes = express.Router();
+import upload from "../../Helpers/imageUpload.js";
 
-userRoutes.post('/register',Register);
+userRoutes.post('/register',upload.single("profileimage"),Register);
+userRoutes.post('/login',login)
 
 export default userRoutes ;

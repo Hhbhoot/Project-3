@@ -1,27 +1,45 @@
 import { userService } from "../service/userservice.js";
+import User from "../modell/usermodel.js";
+import bcrypt from "bcrypt"
+import  jwt  from "jsonwebtoken";
 const UserService = new userService();
 
 export const Register = async (req, res) => {
     try {
-        console.log(req.body);
-        
-        let user = await UserService.findUser(req.body.email);
-
-        if (user) {
-            return res.status(200).json({ message: 'User already registered..' });
+      let user = await User.findOne({ email: req.body.email, isDelete: false });
+      if (user) {
+        return res.json({ message: "User Already Exists.." });
+      } else {
+        let image;
+        if (req.file) {
+          image = `${req.file.path.replace(/\\/g, "/")}`;
         }
-
-        let newUser = await UserService.addUser(Request.body);
-
-        if (newUser) {
-            return res.status(201).json({ message: "User Registered successfully.." });
-        } else {
-            return res.status(400).json({ message: "Failed to Register User.." });
-        }
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: 'Internal server error..' });
+        let salt = 10;
+        let hashPassword = await bcrypt.hash(req.body.password, salt);
+  
+        user = await User.create({
+          ...req.body,
+          profileimage : image,
+          password: hashPassword,
+          is_Admin: req.body.is_Admin
+        });
+         await user.save();
+        res.status(201).json({ message: "User Created Successfully", user });
+      }
+    } catch (err) {
+      console.log(err);
+      return res.json({ message: "internal server error" });
     }
-};
-
-
+  };
+  
+  export const login = async(req , res)=>{
+     
+    try {
+         const { username , password} = req.body;
+         
+        
+            
+    } catch (error) {
+      
+    }
+  }
