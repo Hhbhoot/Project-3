@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import  jwt  from "jsonwebtoken";
 const UserService = new userService();
 
+
 export const Register = async (req, res) => {
     try {
       let user = await User.findOne({ email: req.body.email, isDelete: false });
@@ -35,11 +36,11 @@ export const Register = async (req, res) => {
   export const login = async(req , res)=>{
      
     try {
-         const { username , password} = req.body;
+        return res.status(200).json({message : "Login Successful..."})
+           
          
-        
-            
     } catch (error) {
-      
+      console.log(error);
+      return res.json(error);
     }
   }

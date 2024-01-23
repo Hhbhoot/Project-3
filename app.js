@@ -13,6 +13,7 @@ const app = express();
 const imagepath = path.join("D:/Nodejs Project/Node_project_2","public","images")
 
 app.use(session({ secret: 'Hitesh123@', resave: true, saveUninitialized: true }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
