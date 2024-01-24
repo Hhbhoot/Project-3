@@ -14,12 +14,14 @@ import './Helpers/localPassport.js';
 
 app.use(session({ secret: 'Hitesh123@', resave: true, saveUninitialized: true }));
 
+app.set("view engine","ejs")
+app.set('views',path.join("D:/Project/Project-3/view"))
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req,res,next)=>{
      console.log(req.session);
-     console.log(req.user)
+     // console.log(req.user)
      next();
 })
 

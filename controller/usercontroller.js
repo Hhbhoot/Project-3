@@ -43,15 +43,14 @@ export const login = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    console.log(req.user)
     let filepath;
     if (req.file) {
       filepath = `${req.file.path.replace(/\\/g, "/")}`;
     }
-    let updateProfile = await User.findByIdAndUpdate(
-      req.user._id,
-      { $set: { ...req.body, profileimage: filepath } },
-      { new: true }
+    let updateProfile = await User.findOneAndUpdate({
+      _id : req.user._id },
+      { $set: { ...req.body, profileimage: filepath } }
+  
     );
 
     if (updateProfile) {
@@ -63,3 +62,33 @@ export const updateProfile = async (req, res) => {
     return res.json(error);
   }
 };
+
+export const getProfile = async(req , res)=>{
+   try {
+         if(req.user){
+            return res.send(req.user)
+         }
+      
+   } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message : "Internal server error.."})
+   }
+};
+
+export const logout = (req,res)=>{
+  try {
+          
+            req.logout(()=>{
+              res.redirect('/signup')
+            })
+                    
+          
+  } catch (error) {
+    console.log(error)
+    return res.json({ message : "Internal server error..",error})
+  }
+}
+
+export const rendorPage =async (req,res)=>{
+    await res.render('signup')
+}

@@ -1,16 +1,11 @@
-import passport from "passport";
 import User from "../modell/usermodel.js";
-import LocalStrategy from "passport-local";
 import bcryptjs from "bcrypt";
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-
-    // Use the "user" and "password" to search the DB and match user/password to authenticate the user
-    // 1. If the user not found, done (null, false)
-    // 2. If the password does not match, done (null, false)
-    // 3. If user found and password match, done (null, user)
-
+passport.use(new LocalStrategy(
+  async (username, password, done) => {
+    
     var user = await User.findOne({ username: username, isDelete: false });
 
     if (!user) return done(null, false);
@@ -24,12 +19,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  //   console.log(user)
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
- let user = User.findById(id)
+passport.deserializeUser(async(id, done) => {
+ let user = await  User.findById(id)
     if(user)
    return done(null, user);
   else 
@@ -39,8 +33,8 @@ passport.deserializeUser((id, done) => {
 export default LocalStrategy;
 
 export const isAuthenticated = (req,res,next)=>{
-   if(req.user){
-    console.log(req.user)
-     next();
+  if (req.isAuthenticated()) {
+    return next();
+     
    }
 }
