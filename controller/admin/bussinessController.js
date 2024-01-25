@@ -8,7 +8,8 @@ export const addBussiness = async(req,res)=>{
           }
           
           let newBussiness = await Bussiness.create({
-            ...req.body
+            ...req.body,
+            admin : req.user._id
           });
           if(newBussiness){
             return res.status(201).json({message : "Bussiness added successfully..."})

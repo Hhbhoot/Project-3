@@ -3,6 +3,6 @@ const admin = express.Router();
 
 import bussinessRoutes from "./bussinessRoutes.js";
 
-admin.use('/business',bussinessRoutes);
+admin.use('/bussiness',bussinessRoutes);
 
 export default admin ;

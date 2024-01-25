@@ -46,6 +46,7 @@ app.use('/public/images',express.static(imagepath))
 app.use(morgan("dev"));
 
 app.use('/user',user)
+app.use('/admin',admin)
 
 
 app.listen(PORT , (err)=>{
