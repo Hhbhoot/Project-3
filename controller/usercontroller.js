@@ -47,10 +47,11 @@ export const updateProfile = async (req, res) => {
     if (req.file) {
       filepath = `${req.file.path.replace(/\\/g, "/")}`;
     }
-    let updateProfile = await User.findOneAndUpdate({
-      _id : req.user._id },
+    let updateProfile = await User.findOneAndUpdate(
+      {
+        _id: req.user._id,
+      },
       { $set: { ...req.body, profileimage: filepath } }
-  
     );
 
     if (updateProfile) {
@@ -63,32 +64,32 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const getProfile = async(req , res)=>{
-   try {
-         if(req.user){
-            return res.send(req.user)
-         }
-      
-   } catch (error) {
+export const getProfile = async (req, res) => {
+  try {
+    if (req.user) {
+      return res.send(req.user);
+    }
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ message : "Internal server error.."})
-   }
+    return res.status(500).json({ message: "Internal server error.." });
+  }
 };
 
-export const logout = (req,res)=>{
+export const logout = (req, res) => {
   try {
-          
-            req.logout(()=>{
-              res.redirect('/signup')
-            })
-                    
-          
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("signup");
+      // return res.send("Logout successfully...")
+    });
   } catch (error) {
-    console.log(error)
-    return res.json({ message : "Internal server error..",error})
+    console.log(error);
+    return res.json({ message: "Internal server error..", error });
   }
-}
+};
 
-export const rendorPage =async (req,res)=>{
-    await res.render('signup')
-}
+export const rendorPage = async (req, res) => {
+  await res.render("signup");
+};

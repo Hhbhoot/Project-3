@@ -13,7 +13,7 @@ userRoutes.post('/register',upload.single("profileimage"),Register);
 userRoutes.post ("/login", passport.authenticate('local'),login);
 userRoutes.put('/updateprofile',isAuthenticated,updateProfile);
 userRoutes.get('/getprofile',isAuthenticated,getProfile);
-// userRoutes.get('/logout',isAuthenticated,logout);
+userRoutes.post('/logout',isAuthenticated,logout);
 
 
 export default userRoutes ;

@@ -5,17 +5,30 @@ import session from "express-session"
 import passport from "passport";
 import { connectDB } from "./connectDB.js";
 import path from "path";;
+
 import user from "./Routes/user/indexroutes.js";
+import admin from "./Routes/admin/indexRoutes.js";
+
 import morgan from "morgan";
 const PORT = process.env.PORT;
 const app = express();
-const imagepath = path.join("D:/Nodejs Project/Node_project_2","public","images")
+
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const imagepath = path.join(__dirname,"public","images")
+
 import './Helpers/localPassport.js';
 
 app.use(session({ secret: 'Hitesh123@', resave: true, saveUninitialized: true }));
 
 app.set("view engine","ejs")
-app.set('views',path.join("D:/Project/Project-3/view"))
+
+
+app.set('views',imagepath);
 app.use(passport.initialize());
 app.use(passport.session());
 
