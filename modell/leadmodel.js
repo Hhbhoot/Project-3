@@ -1,8 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const leadSchema = new mongoose.Schema({
-
   
+     adminId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'user'
+     },
+
+    askId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'ask'
+    },
     category : {
          type : String
     },
@@ -12,8 +20,13 @@ const leadSchema = new mongoose.Schema({
             ref : "user"
         },
         discription : {
-        type : String}
-    }]
+        type : String
+    }
+    }],
+    isDelete : {
+        type : Boolean,
+        default : false
+    }
 },
 {
     timestamps : true

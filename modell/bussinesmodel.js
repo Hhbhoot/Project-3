@@ -41,6 +41,24 @@ const bussinessSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  lead : [{
+      askId : {
+         type : mongoose.Schema.Types.ObjectId,
+         ref : 'ask'
+      },
+      leadId : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'lead'
+      },
+      user : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'user'
+      },
+      disctiption : {
+        type : String
+      }
+      
+  }],
   isDelete: {
     type: Boolean,
     default: false,
