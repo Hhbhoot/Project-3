@@ -28,7 +28,7 @@ app.use(session({ secret: 'Hitesh123@', resave: true, saveUninitialized: true })
 app.set("view engine","ejs")
 
 
-app.set('views',imagepath);
+app.set('views',path.join(__dirname,'views'));
 app.use(passport.initialize());
 app.use(passport.session());
 
